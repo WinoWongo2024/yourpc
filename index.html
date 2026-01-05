@@ -1,26 +1,194 @@
-<div style="background-color: #002664; color: white; padding: 20px; font-family: sans-serif;">
-    <div style="background-color: #ffc20e; color: black; padding: 10px; font-weight: bold; margin-bottom: 20px;">
-        ⚠️ LIVE ALERT: All Bath to Bristol train and bus services face cancellations due to ICE & SNOW.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Service Updates | National Express</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --nx-blue: #002664;
+            --nx-red: #d50032;
+            --nx-yellow: #ffc20e;
+            --bg-gray: #f2f2f2;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            background-color: var(--bg-gray);
+            color: #333;
+        }
+
+        .nx-header {
+            background: white;
+            padding: 1rem 5%;
+            border-bottom: 4px solid var(--nx-blue);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nx-logo {
+            font-weight: 900;
+            font-size: 1.8rem;
+            color: var(--nx-blue);
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+
+        .alert-hero {
+            background-color: var(--nx-red);
+            color: white;
+            padding: 2rem 5%;
+            text-align: center;
+        }
+
+        .alert-hero h1 {
+            margin: 0;
+            font-size: 2rem;
+            text-transform: uppercase;
+        }
+
+        .main-content {
+            max-width: 1100px;
+            margin: -20px auto 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .weather-banner {
+            background: #fff3f3;
+            border: 2px solid var(--nx-red);
+            padding: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-radius: 8px;
+        }
+
+        .status-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .status-table th {
+            background: var(--nx-blue);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 700;
+        }
+
+        .status-table td {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            font-size: 1rem;
+        }
+
+        .badge {
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        .badge-cancelled { background: #fee2e2; color: var(--nx-red); border: 1px solid var(--nx-red); }
+        .badge-delayed { background: #fffbeb; color: #92400e; border: 1px solid var(--nx-yellow); }
+
+        .timestamp {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .footer-cta {
+            margin-top: 30px;
+            background: var(--nx-blue);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<header class="nx-header">
+    <div class="nx-logo">National Express</div>
+    <div style="font-weight: bold; color: var(--nx-blue);">My Account | Help</div>
+</header>
+
+<div class="alert-hero">
+    <h1>Major Service Disruption</h1>
+</div>
+
+<div class="main-content">
+    <div class="timestamp" id="clock">Loading current status...</div>
+
+    <div class="weather-banner">
+        <span style="font-size: 2rem;">❄️</span>
+        <div>
+            <strong>ICE & SNOW ALERT:</strong> Dangerous road conditions have led to the suspension of all coach services between <strong>Bath and Bristol</strong>. Services from Bristol to Birmingham, London, and Cardiff are also heavily impacted.
+        </div>
     </div>
-    
-    <h2 style="border-bottom: 2px solid #fff;">Bath Spa Departures</h2>
-    <table style="width: 100%; border-collapse: collapse;">
-        <tr style="text-align: left; border-bottom: 1px solid #444;">
-            <th>Time</th><th>Destination</th><th>Plat</th><th>Status</th>
-        </tr>
-        <tr style="color: #ff4d4d; font-weight: bold;">
-            <td>09:50</td><td>Bristol Temple Meads</td><td>1</td><td>CANCELLED</td>
-        </tr>
-        <tr style="color: #ffc20e;">
-            <td>10:04</td><td>Great Malvern</td><td>1</td><td>DELAYED (10m)</td>
-        </tr>
-        <tr style="color: #ff4d4d; font-weight: bold;">
-            <td>10:11</td><td>Bristol Temple Meads</td><td>1</td><td>CANCELLED</td>
-        </tr>
+
+    <table class="status-table">
+        <thead>
+            <tr>
+                <th>Service No.</th>
+                <th>Route</th>
+                <th>Departure Time</th>
+                <th>Live Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>403</strong></td>
+                <td>Bath &rarr; London Victoria</td>
+                <td>09:50</td>
+                <td><span class="badge badge-cancelled">Cancelled</span></td>
+            </tr>
+            <tr>
+                <td><strong>X39</strong></td>
+                <td>Bath &rarr; Bristol City Centre</td>
+                <td>10:05</td>
+                <td><span class="badge badge-cancelled">Cancelled</span></td>
+            </tr>
+            <tr>
+                <td><strong>100</strong></td>
+                <td>Bristol &rarr; Birmingham</td>
+                <td>10:15</td>
+                <td><span class="badge badge-cancelled">Cancelled</span></td>
+            </tr>
+            <tr>
+                <td><strong>FAL</strong></td>
+                <td>Bristol &rarr; Plymouth</td>
+                <td>10:30</td>
+                <td><span class="badge badge-delayed">Delayed (55m)</span></td>
+            </tr>
+        </tbody>
     </table>
-    
-    <div style="margin-top: 20px; font-size: 0.9em; background: rgba(255,255,255,0.1); padding: 10px;">
-        <strong>Weather Note:</strong> Points failure at Oldfield Park caused by freezing temperatures. 
-        Road travel via X39 and National Express also suspended.
+
+    <div class="footer-cta">
+        <p>Do not travel to the station if your service is cancelled.</p>
+        <button style="background: var(--nx-yellow); border: none; padding: 12px 25px; font-weight: bold; cursor: pointer;">Manage My Booking / Refunds</button>
     </div>
 </div>
+
+<script>
+    function updateTime() {
+        const now = new Date();
+        document.getElementById('clock').innerHTML = "SYSTEM STATUS AS OF: " + now.toLocaleTimeString('en-GB') + " | 05 JAN 2026";
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
+</script>
+</body>
+</html>
