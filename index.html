@@ -2,193 +2,254 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Service Updates | National Express</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>First Somerset Simulator</title>
+    <!-- PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#4a2c6d">
+    <link rel="manifest" href="data:application/json;base64,ewogICJnameIjogIkZpcnN0IFNvbWVyc2V0IFNpbXVsYXRvciIsCiAgInNob3J0X25hbWUiOiAiU29tZXJzZXRCdXMiLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzRhMmM2ZCIsCiAgInRoZW1lX2NvbG9yIjogIzRhMmM2ZCIKfQ==">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+    
     <style>
-        :root {
-            --nx-blue: #002664;
-            --nx-red: #d50032;
-            --nx-yellow: #ffc20e;
-            --bg-gray: #f2f2f2;
-        }
-
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            background-color: var(--bg-gray);
-            color: #333;
-        }
-
-        .nx-header {
-            background: white;
-            padding: 1rem 5%;
-            border-bottom: 4px solid var(--nx-blue);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nx-logo {
-            font-weight: 900;
-            font-size: 1.8rem;
-            color: var(--nx-blue);
-            letter-spacing: -1px;
-            text-transform: uppercase;
-        }
-
-        .alert-hero {
-            background-color: var(--nx-red);
-            color: white;
-            padding: 2rem 5%;
-            text-align: center;
-        }
-
-        .alert-hero h1 {
-            margin: 0;
-            font-size: 2rem;
-            text-transform: uppercase;
-        }
-
-        .main-content {
-            max-width: 1100px;
-            margin: -20px auto 40px;
-            background: white;
-            padding: 30px;
-            border-radius: 4px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .weather-banner {
-            background: #fff3f3;
-            border: 2px solid var(--nx-red);
-            padding: 15px;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border-radius: 8px;
-        }
-
-        .status-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        .status-table th {
-            background: var(--nx-blue);
-            color: white;
-            padding: 15px;
-            text-align: left;
-            font-weight: 700;
-        }
-
-        .status-table td {
-            padding: 15px;
-            border-bottom: 1px solid #ddd;
-            font-size: 1rem;
-        }
-
-        .badge {
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-weight: bold;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-        }
-
-        .badge-cancelled { background: #fee2e2; color: var(--nx-red); border: 1px solid var(--nx-red); }
-        .badge-delayed { background: #fffbeb; color: #92400e; border: 1px solid var(--nx-yellow); }
-
-        .timestamp {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-
-        .footer-cta {
-            margin-top: 30px;
-            background: var(--nx-blue);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            border-radius: 4px;
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .matrix-font { font-family: 'JetBrains Mono', monospace; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .led-grid {
+            background-image: radial-gradient(rgba(0,0,0,0.3) 1px, transparent 0);
+            background-size: 4px 4px;
         }
     </style>
 </head>
-<body>
+<body class="bg-zinc-100 min-h-screen">
+    <div id="app" class="max-w-md mx-auto min-h-screen flex flex-col p-4 space-y-4 pb-12">
+        <!-- Header -->
+        <header class="bg-white rounded-xl shadow-md overflow-hidden border-b-4 border-[#e91e63]">
+            <div class="p-4 flex items-center justify-between bg-[#4a2c6d]">
+                <div class="bg-white px-2 py-1 rounded rotate-[-1deg] shadow-sm">
+                    <span class="text-[#4a2c6d] font-[900] text-xl italic tracking-tighter uppercase">First <span class="text-[#e91e63]">Bus</span></span>
+                </div>
+                <div class="text-white text-right leading-none">
+                    <div class="text-[9px] uppercase font-black tracking-widest opacity-80">Somerset & Bath</div>
+                    <div class="text-[11px] font-bold">Mendip Explorer</div>
+                </div>
+            </div>
+        </header>
 
-<header class="nx-header">
-    <div class="nx-logo">National Express</div>
-    <div style="font-weight: bold; color: var(--nx-blue);">My Account | Help</div>
-</header>
+        <!-- Matrix Display -->
+        <div class="bg-black rounded-lg p-5 shadow-2xl border-4 border-zinc-800 relative overflow-hidden">
+            <div class="flex items-center gap-4 relative z-10">
+                <div id="matrix-number" class="text-amber-500 text-5xl font-bold min-w-[80px] text-center matrix-font">172</div>
+                <div class="flex-1">
+                    <div id="matrix-dest" class="text-amber-500 text-2xl font-bold uppercase leading-none truncate matrix-font tracking-tighter">BATH CITY CENTRE</div>
+                    <div id="matrix-via" class="text-amber-700 text-[10px] font-bold mt-1 uppercase matrix-font">Via Midsomer Norton</div>
+                </div>
+            </div>
+            <div class="absolute inset-0 led-grid opacity-40"></div>
+        </div>
 
-<div class="alert-hero">
-    <h1>Major Service Disruption</h1>
-</div>
+        <!-- Route Selector -->
+        <div class="flex gap-2 overflow-x-auto py-1 no-scrollbar" id="route-tabs"></div>
 
-<div class="main-content">
-    <div class="timestamp" id="clock">Loading current status...</div>
+        <!-- Driver Console -->
+        <div class="bg-white rounded-3xl shadow-xl p-6 space-y-5 border border-gray-200">
+            <div class="flex justify-between items-center border-b pb-3">
+                <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Driver Control Unit</span>
+                <span id="status-bar" class="text-[10px] font-black text-emerald-600 uppercase tracking-widest">System Ready</span>
+            </div>
 
-    <div class="weather-banner">
-        <span style="font-size: 2rem;">❄️</span>
-        <div>
-            <strong>ICE & SNOW ALERT:</strong> Dangerous road conditions have led to the suspension of all coach services between <strong>Bath and Bristol</strong>. Services from Bristol to Birmingham, London, and Cardiff are also heavily impacted.
+            <div class="grid grid-cols-2 gap-4">
+                <button onclick="announce('this')" id="btn-where" class="flex flex-col items-center gap-2 p-4 rounded-2xl bg-zinc-50 border-2 border-transparent active:bg-purple-50 active:border-purple-200 transition-all">
+                    <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span class="text-[10px] font-black text-gray-600 uppercase">Where be we?</span>
+                </button>
+                <button onclick="announce('bell')" id="btn-bell" class="flex flex-col items-center gap-2 p-4 rounded-2xl bg-zinc-50 border-2 border-transparent active:bg-pink-50 active:border-pink-200 transition-all">
+                    <svg class="w-6 h-6 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                    <span class="text-[10px] font-black text-gray-600 uppercase">Bell Request</span>
+                </button>
+            </div>
+
+            <button onclick="handleNextStop()" id="btn-next" class="w-full py-5 rounded-2xl font-[900] text-white shadow-lg bg-gradient-to-br from-[#4a2c6d] to-[#e91e63] active:scale-[0.97] transition-all flex items-center justify-center gap-2 text-lg">
+                NEXT STOP, ARR!
+            </button>
+        </div>
+
+        <!-- Progress Card -->
+        <div class="bg-[#4a2c6d] rounded-2xl p-5 text-white shadow-xl relative overflow-hidden mt-auto">
+            <div class="relative z-10 flex items-center gap-4">
+                <div class="p-3 bg-white/10 rounded-full border border-white/20">
+                    <svg class="w-6 h-6 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                </div>
+                <div>
+                    <div class="text-[10px] font-black text-pink-300 uppercase tracking-widest">Current Stop</div>
+                    <div id="current-stop-name" class="text-2xl font-black uppercase tracking-tighter">Paulton</div>
+                </div>
+            </div>
+            <div class="mt-4 h-1 bg-white/20 rounded-full overflow-hidden">
+                <div id="progress-bar" class="h-full bg-pink-500 transition-all duration-700" style="width: 0%"></div>
+            </div>
         </div>
     </div>
 
-    <table class="status-table">
-        <thead>
-            <tr>
-                <th>Service No.</th>
-                <th>Route</th>
-                <th>Departure Time</th>
-                <th>Live Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><strong>403</strong></td>
-                <td>Bath &rarr; London Victoria</td>
-                <td>09:50</td>
-                <td><span class="badge badge-cancelled">Cancelled</span></td>
-            </tr>
-            <tr>
-                <td><strong>X39</strong></td>
-                <td>Bath &rarr; Bristol City Centre</td>
-                <td>10:05</td>
-                <td><span class="badge badge-cancelled">Cancelled</span></td>
-            </tr>
-            <tr>
-                <td><strong>100</strong></td>
-                <td>Bristol &rarr; Birmingham</td>
-                <td>10:15</td>
-                <td><span class="badge badge-cancelled">Cancelled</span></td>
-            </tr>
-            <tr>
-                <td><strong>FAL</strong></td>
-                <td>Bristol &rarr; Plymouth</td>
-                <td>10:30</td>
-                <td><span class="badge badge-delayed">Delayed (55m)</span></td>
-            </tr>
-        </tbody>
-    </table>
+    <script>
+        const apiKey = ""; // Set by environment
+        const routeData = {
+            "172": { dest: "Bath City Centre", via: "Midsomer Norton", stops: ["Paulton", "Midsomer Norton", "Radstock", "Peasedown St John", "Odd Down", "Bath Bus Station"] },
+            "173": { dest: "Wells Bus Station", via: "Chilcompton", stops: ["Bath Bus Station", "Peasedown", "Radstock", "Midsomer Norton", "Chilcompton", "Wells Bus Station"] },
+            "174": { dest: "Shepton Mallet", via: "Wells", stops: ["Bath", "Peasedown", "Radstock", "Midsomer Norton", "Shepton Mallet", "Wells"] },
+            "522": { dest: "Bristol", via: "Keynsham", stops: ["Bath", "Timsbury", "Paulton", "Midsomer Norton", "Radstock", "Keynsham", "Bristol"] },
+            "171": { dest: "Paulton", via: "Peasedown", stops: ["Bath", "Odd Down", "Peasedown", "Radstock", "Midsomer Norton", "Paulton"] }
+        };
 
-    <div class="footer-cta">
-        <p>Do not travel to the station if your service is cancelled.</p>
-        <button style="background: var(--nx-yellow); border: none; padding: 12px 25px; font-weight: bold; cursor: pointer;">Manage My Booking / Refunds</button>
-    </div>
-</div>
+        let state = {
+            routeNumber: "172",
+            stopIndex: 0,
+            isAnnouncing: false
+        };
 
-<script>
-    function updateTime() {
-        const now = new Date();
-        document.getElementById('clock').innerHTML = "SYSTEM STATUS AS OF: " + now.toLocaleTimeString('en-GB') + " | 05 JAN 2026";
-    }
-    setInterval(updateTime, 1000);
-    updateTime();
-</script>
+        function init() {
+            renderTabs();
+            updateUI();
+        }
+
+        function renderTabs() {
+            const container = document.getElementById('route-tabs');
+            container.innerHTML = Object.keys(routeData).map(num => `
+                <button onclick="setRoute('${num}')" class="px-6 py-2 rounded-full text-xs font-black transition-all border-2 flex-shrink-0 ${state.routeNumber === num ? 'bg-[#4a2c6d] border-[#4a2c6d] text-white shadow-md' : 'bg-white border-gray-200 text-gray-400'}">
+                    ${num}
+                </button>
+            `).join('');
+        }
+
+        function setRoute(num) {
+            state.routeNumber = num;
+            state.stopIndex = 0;
+            renderTabs();
+            updateUI();
+            announce('this');
+        }
+
+        function updateUI() {
+            const route = routeData[state.routeNumber];
+            document.getElementById('matrix-number').innerText = state.routeNumber;
+            document.getElementById('matrix-dest').innerText = route.dest;
+            document.getElementById('matrix-via').innerText = `Via ${route.via}`;
+            document.getElementById('current-stop-name').innerText = route.stops[state.stopIndex];
+            
+            const progress = (state.stopIndex / (route.stops.length - 1)) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+            
+            const nextBtn = document.getElementById('btn-next');
+            if (state.stopIndex === route.stops.length - 1) {
+                nextBtn.innerText = "END OF LINE";
+                nextBtn.disabled = true;
+                nextBtn.classList.add('grayscale');
+            } else {
+                nextBtn.innerText = "NEXT STOP, ARR!";
+                nextBtn.disabled = false;
+                nextBtn.classList.remove('grayscale');
+            }
+        }
+
+        function handleNextStop() {
+            const route = routeData[state.routeNumber];
+            if (state.stopIndex < route.stops.length - 1) {
+                state.stopIndex++;
+                updateUI();
+                announce('next');
+            }
+        }
+
+        async function announce(type) {
+            if (state.isAnnouncing) return;
+            state.isAnnouncing = true;
+            document.getElementById('status-bar').innerText = "Broadcasting...";
+            document.getElementById('status-bar').classList.replace('text-emerald-600', 'text-pink-600');
+
+            const route = routeData[state.routeNumber];
+            const stop = route.stops[state.stopIndex];
+            
+            const systemPrompt = "You are a friendly Somerset bus announcement system. Speak with a heavy West Country accent. Exaggerate 'r' sounds like a pirate. Use 'm'love', 'proper', 'gert', and 'cheers drive'. Pronounce 'Bath' like 'B-ah-th'.";
+            
+            let text = "";
+            if (type === 'next') text = `Alright m'love? Next stop is proper ${stop}. Mind the gap now, arrrr.`;
+            else if (type === 'this') text = `This be ${stop}. This gert bus is the ${state.routeNumber} to ${route.dest}. Cheers drive!`;
+            else if (type === 'bell') text = "Ding! Hold on tight, we're stopping for ye m'love.";
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text }] }],
+                        systemInstruction: { parts: [{ text: systemPrompt }] },
+                        generationConfig: {
+                            responseModalities: ["AUDIO"],
+                            speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Fenrir" } } }
+                        }
+                    })
+                });
+
+                const result = await response.json();
+                const pcmData = result.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
+
+                if (pcmData) {
+                    playAudio(pcmData);
+                } else {
+                    resetStatus();
+                }
+            } catch (e) {
+                console.error(e);
+                resetStatus();
+            }
+        }
+
+        function playAudio(b64Data) {
+            const binaryString = atob(b64Data);
+            const len = binaryString.length;
+            const buffer = new ArrayBuffer(44 + len);
+            const view = new DataView(buffer);
+            const sampleRate = 24000;
+
+            view.setUint32(0, 0x52494646, false); 
+            view.setUint32(4, 36 + len, true);
+            view.setUint32(8, 0x57415645, false); 
+            view.setUint32(12, 0x666d7420, false); 
+            view.setUint32(16, 16, true);
+            view.setUint16(20, 1, true); 
+            view.setUint16(22, 1, true); 
+            view.setUint32(24, sampleRate, true);
+            view.setUint32(28, sampleRate * 2, true);
+            view.setUint16(32, 2, true);
+            view.setUint16(34, 16, true);
+            view.setUint32(36, 0x64617461, false); 
+            view.setUint32(40, len, true);
+
+            for (let i = 0; i < len; i++) view.setUint8(44 + i, binaryString.charCodeAt(i));
+
+            const audio = new Audio(URL.createObjectURL(new Blob([buffer], { type: 'audio/wav' })));
+            audio.onended = resetStatus;
+            audio.play();
+        }
+
+        function resetStatus() {
+            state.isAnnouncing = false;
+            document.getElementById('status-bar').innerText = "System Ready";
+            document.getElementById('status-bar').classList.replace('text-pink-600', 'text-emerald-600');
+        }
+
+        // Service Worker for Offline (Simplified for Single File)
+        if ('serviceWorker' in navigator) {
+            const swCode = "self.addEventListener('fetch', function(event) {});";
+            const blob = new Blob([swCode], {type: 'application/javascript'});
+            const url = URL.createObjectURL(blob);
+            navigator.serviceWorker.register(url);
+        }
+
+        window.onload = init;
+    </script>
 </body>
 </html>
+
